@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Log in</title>
+</head>
+<body>
+    <form id="form">
+        <h2>Sign Up</h2>
+        <table>
+            <tr>
+                <td>Name</td>
+                <td><input type="text" id="txt_Name"></td>
+            </tr>
+            <tr>
+                <td>Username</td>
+                <td><input type="text" id="txt_Username"></td>
+            </tr>
+            <tr>
+                <td>Password:</td>
+                <td><input type="password" id="txt_Password"></td>
+            </tr>
+            <tr>
+                <td><button type="button" onclick="signup()">SIGN UP</button></td>
+            </tr>
+        </table>
+
+        <h2>Log In</h2>
+        <table>
+            <tr>
+              <td>Name</td>
+              <td><input type="text" id="txt_login_name"></td>
+            </tr>
+            <tr>
+                <td>Username</td>
+                <td><input type="text" id="txt_login_username"></td>
+            </tr>
+            <tr>
+                <td>Password:</td>
+                <td><input type="password" id="txt_login_password"></td>
+            </tr>
+            <tr>
+                <td><button type="button" onclick="login()">LOG IN</button></td>
+            </tr>
+        </table>
+    </form>
+    
+    <script>
+
+        function signup() {
+            const name = document.getElementById("txt_Name").value;
+            const username = document.getElementById("txt_Username").value;
+            const password = document.getElementById("txt_Password").value;
+
+            let users = JSON.parse(localStorage.getItem('users')) || [];
+
+            users.push({Name: name,Username:username,Password:password});
+
+            localStorage.setItem('users',JSON.stringify('users'));
+
+            alert("Successfully sign up")
+            document.getElementById("txt_Name").value = '';
+            document.getElementById("txt_Username").value = '';
+            document.getElementById("txt_Password").value = '';
+        }
+
+        function login() {
+            const name = document.getElementById("txt_login_name").value;
+            const username = document.getElementById("txt_login_username").value;
+            const password = document.getElementById("txt_login_password").value;
+
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+
+            const user = users.find(user => user.Name === name && user.Username === username && user.Password === password);
+
+            if (user) {
+              alert("Log in Successfully");
+            }
+            else {
+              alert("Incorrect Credentials");
+            }
+            document.getElementById("txt_login_name").value = '';
+            document.getElementById("txt_login_username").value = '';
+            document.getElementById("txt_login_password").value = '';
+        }
+    </script>
+</body>
+</html>
